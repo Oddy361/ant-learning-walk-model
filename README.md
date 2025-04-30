@@ -1,7 +1,6 @@
 # ant-learning-walk-model
-Learning Walk Modeling
 
-# Learning Walk Model in Ant Navigation
+## Learning Walk Model in Ant Navigation
 
 This repository contains the source code and experiment scripts used in our study on modeling the multimodal mechanisms underlying Learning Walks in ants.
 
@@ -26,3 +25,7 @@ git clone https://github.com/YourUsername/ant-learning-walk-model.git
 cd ant-learning-walk-model
 jupyter notebook Learning_Walk_Runing.ipynb
 
+## License
+
+This project is licensed under the MIT License.  
+See the [LICENSE](./LICENSE) file for details.
