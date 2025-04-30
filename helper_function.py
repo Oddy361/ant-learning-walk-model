@@ -347,25 +347,26 @@ class LearningWalkAgent(object):
     # 让Agent确定出巢穴的方向
     # 利用原则：选取巢穴时观看周围熟悉度最高的那个方向，也就是EN值的最小的方向
     # 也可以随机产生
-    def Chooes_LWDirection(self,Scan_Interval=15):
-        # 从原点对四周进行扫描，选择视觉熟悉度最高的方向
-        self.Change_Position(0,0)
-        Familiarity_All,min_Familiarity,min_angle=self.Get_VisualFamiliarity(Scan_Interval)
-        # 将所得的弧度转移到-pi，pi
-        min_Radians=wrap_to_pi(np.radians(min_angle))
 
-        """以下代码用于测试LW行为对于凝视的作用,需要选取随机方向"""
+    def Choose_LWDirection(self, Scan_Interval=15):
+        """
+        Randomly choose an initial Learning Walk direction with angle intervals of `Scan_Interval` degrees.
+        Then set the agent's heading and shift its position slightly outward from the nest center.
+        """
+        import numpy as np
 
-        min_Radians = np.random.uniform(0, 2 * np.pi)
+        # 从所有可选角度中随机选择一个
+        possible_angles_deg = np.arange(0, 360, Scan_Interval)
+        chosen_angle_deg = np.random.choice(possible_angles_deg)
+        chosen_angle_rad = np.radians(chosen_angle_deg)
 
-        """注释中的代码请按需进行删除"""
+        # 设置头部朝向
+        self.Heading = wrap_to_pi(chosen_angle_rad)
 
-        # 将Agent按照该方向移出巢穴一点点
-            # 修改头部朝向
-        self.Heading=min_Radians
-         # 修改蚂蚁位置，保持Homing向量正常
-        self.CoordinateX=self.CoordinateX+0.001*np.cos(self.Heading)
-        self.CoordinateY=self.CoordinateY+0.001*np.sin(self.Heading)
+        # 将蚂蚁微移出巢穴中心
+        self.CoordinateX = self.CoordinateX + 0.001 * np.cos(self.Heading)
+        self.CoordinateY = self.CoordinateY + 0.001 * np.sin(self.Heading)
+
 
     # 以下几个函数都是需要灵活调整的
 
@@ -712,7 +713,7 @@ class LearningWalkAgent(object):
         t=0;T=[];T_Scan=[]
 
         # 选择初始方向
-        self.Chooes_LWDirection(15)
+        self.Choose_LWDirection(15)
         
         # 开始行走模拟
         while True:
