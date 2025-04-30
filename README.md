@@ -24,6 +24,7 @@ Clone the repository:
 git clone https://github.com/YourUsername/ant-learning-walk-model.git
 cd ant-learning-walk-model
 jupyter notebook Learning_Walk_Runing.ipynb
+```
 
 ## License
 
